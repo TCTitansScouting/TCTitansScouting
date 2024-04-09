@@ -1,10 +1,15 @@
 <template>
   <FormPage title="Download Data" ref="page">
     <FormGroup :label-type="LabelType.None" :colspan="2" align="center">
-      <button @click="qrContainer?.showModal()">Generate QR Code</button>
     </FormGroup>
     <FormGroup :label-type="LabelType.None" :colspan="2" align="center">
       <button @click="clearForm">Save and Clear Form</button>
+      <br>
+      <button @click="generateQRCode">Generate QR Code</button>
+      <br>
+      <div v-if="qrCodeUrl">
+        <img :src="qrCodeUrl" alt="QR Code">
+      </div>
     </FormGroup>
     <FormGroup :label-type="LabelType.None">
       <div style="height: 20px;"></div>
@@ -33,30 +38,51 @@
 </template>
 
 <script setup lang="ts">
+import { defineProps, ref, computed, defineExpose } from "vue";
 import FormPage from "./FormPage.vue";
 import FormGroup from "./FormGroup.vue";
 import { LabelType } from "@/common/shared";
-import { computed } from "vue";
 import QrcodeVue from "qrcode.vue";
 import { useConfigStore, useWidgetsStore } from "@/common/stores";
 import { useRouter } from "vue-router";
+import QRCode from 'qrcode';
 
 const config = useConfigStore();
 const widgets = useWidgetsStore();
 
-const router = useRouter();
+const props = defineProps<{
+  data: any;
+}>();
 
-const page = $ref<InstanceType<typeof FormPage>>();
-const qrContainer = $ref<HTMLDialogElement>();
-const qrData = $computed(() => widgets.toCSVString(widgets.getWidgetsAsCSV(), excludeHeaders));
-const excludeHeaders = $ref(false);
+const spreadsheetData = ref('');
+const qrCodeUrl = ref('');
+const excludeHeaders = ref(false);
+
+const router = useRouter();
+const page = ref<InstanceType<typeof FormPage>>();
+const qrContainer = ref<HTMLDialogElement>();
+
+function generateQRCode() {
+  const dataText = JSON.stringify(props.data, null, 2);
+  if (dataText) {
+    QRCode.toDataURL(dataText, (err, url) => {
+      if (err) {
+        console.error(err)
+      } else {
+        qrCodeUrl.value = url;
+      }
+    })
+  } else {
+    alert('Please enter some form data.')
+  }
+}
 
 function clearForm() {
   widgets.save();
-  router.go(0); // Reload the page
+  router.go(0); 
 }
 
-defineExpose({ title: computed(() => page?.title), setShown: computed(() => page?.setShown) });
+defineExpose({ title: computed(() => page?.value?.title), setShown: computed(() => page?.value?.setShown) });
 </script>
 
 <style lang="postcss">
