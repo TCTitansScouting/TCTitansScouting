@@ -50,7 +50,7 @@
           "name": "passed notes",
           "type": "spinbox",
           "row": 1,
-          "col": 3
+          "col": 2
         },
         {
           "name": "Source",
@@ -121,6 +121,8 @@
         {
           "name": "Comments",
           "type": "textarea"
-        }  
-    ]
-}]}
+        }
+      ]
+    }
+  ]
+}
