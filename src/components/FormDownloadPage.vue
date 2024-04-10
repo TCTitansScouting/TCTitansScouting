@@ -66,7 +66,10 @@ const qrContainer = ref<HTMLDialogElement>();
 
 function generateQRCode() {
   //const dataText = JSON.stringify(props.data, null, 2);
-  const dataText = $computed(() => widgets.makeDownloadLink(props.data, true));
+  const dataText = $computed(() => {
+      const data = savedData.get(config.name);
+      return (data === undefined) ? null : makeDownloadLink(data);
+    });
   if (dataText) {
     QRCode.toDataURL(dataText, (err, url) => {
       if (err) {
