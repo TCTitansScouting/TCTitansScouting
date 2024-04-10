@@ -50,7 +50,7 @@
           "name": "passes",
           "type": "spinbox",
           "row": 3,
-          "col": 3
+          "col": 2
         },
         {
           "name": "Source",
