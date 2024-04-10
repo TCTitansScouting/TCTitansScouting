@@ -37,27 +37,23 @@
       "name": "Teleop",
       "widgets": [
         {
-          "name": "Picked Up From",
+          "name": "Note Management",
           "type": "heading",
           "colspan": 5,
           "align": "center"
         },
         {
           "name": "Ground",
-          "type": "spinbox",
-          "row": 1,
-          "col": 2
+          "type": "spinbox"
         },
         {
-          "name": "passes",
-          "type": "spinbox",
-          "row": 2,
-          "col": 2
+          "name": "passed notes",
+          "type": "spinbox"
         },
         {
           "name": "Source",
           "type": "spinbox",
-          "row": 3,
+          "row": 2,
           "col": 3
         },
         {
@@ -123,8 +119,6 @@
         {
           "name": "Comments",
           "type": "textarea"
-        }
-      ]
-    }
-  ]
-}
+        }  
+    ]
+}]}
