@@ -65,7 +65,8 @@ const page = ref<InstanceType<typeof FormPage>>();
 const qrContainer = ref<HTMLDialogElement>();
 
 function generateQRCode() {
-  const dataText = JSON.stringify(props.data, null, 2);
+  //const dataText = JSON.stringify(props.data, null, 2);
+  const dataText = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
   if (dataText) {
     QRCode.toDataURL(dataText, (err, url) => {
       if (err) {
