@@ -85,10 +85,6 @@
           "col": 2
         },
         {
-          "type": "spacer",
-          "height": 20
-        },
-        {
           "name": "Can do Defense",
           "type": "checkbox",
           "col": 2
@@ -120,12 +116,6 @@
           "name": "Comments",
           "type": "textarea"
         },
-        {
-          "name": "Stage Positions",
-          "type": "heading",
-          "colspan": 2,
-          "align": "center"
-        }
       ]
     }
   ]
