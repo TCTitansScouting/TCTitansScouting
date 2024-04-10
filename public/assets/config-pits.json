@@ -17,65 +17,31 @@
       ]
     },
     {
-      "name": "Robot",
-      "widgets": [
-        {
-          "name": "Drivetrain",
-          "type": "dropdown",
-          "options": [
-            "West Coast",
-            "Swerve",
-            "Butterfly",
-            "Mecanum",
-            "Tank Drive",
-            "Other"
-          ]
-        },
-        {
-          "name": "can climb?",
-          "type": "checkbox"
-        }
-      ]
-    },
-    {
       "name": "Match Play",
       "widgets": [
         {
-          "name": "Cycle Time",
-          "type": "number"
+          "name": "can climb?",
+          "type": "checkbox"
         },
         {
           "name": "Can Pick Up",
           "type": "multicheckbox",
-          "options": [
-            "Ground",
-            "Source"
-          ]
+          "options": ["Ground", "Source"]
         },
         {
           "name": "Can Score In",
           "type": "multicheckbox",
-          "options": [
-            "Speaker",
-            "Amp",
-            "Trap"
-          ]
+          "options": ["Speaker", "Amp", "Trap"]
         },
         {
-          "name": "Scoring Methods",
+          "name": "Scoring Capabilities",
           "type": "multicheckbox",
-          "options": [
-            "Manual",
-            "Auto"
-          ]
+          "options": ["Telop", "Auto"]
         },
         {
           "name": "Preferred Pickup Location",
           "type": "dropdown",
-          "options": [
-            "Ground",
-            "Source"
-          ],
+          "options": ["Ground", "Source"],
           "defaultOption": true
         },
         {

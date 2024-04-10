@@ -30,12 +30,6 @@
           "name": "Speaker Notes",
           "type": "spinbox",
           "prefix": "Auto"
-        },
-        {
-          "name": "Trap Notes",
-          "type": "spinbox",
-          "max": 3,
-          "prefix": "Auto"
         }
       ]
     },
@@ -95,20 +89,7 @@
           "height": 20
         },
         {
-          "name": "Defense Rating",
-          "type": "dropdown",
-          "options": [
-            "0 (Not Played)",
-            "1",
-            "2",
-            "3",
-            "4",
-            "5 (Very Effective)"
-          ],
-          "col": 2
-        },
-        {
-          "name": "Tipped",
+          "name": "Can do Defense",
           "type": "checkbox",
           "col": 2
         }
@@ -120,12 +101,7 @@
         {
           "name": "End Location",
           "type": "radio",
-          "options": [
-            "Onstage and Spotlit",
-            "Onstage",
-            "Parked",
-            "None"
-          ],
+          "options": ["Onstage and Spotlit", "Onstage", "Parked", "None"],
           "default": 3
         },
         {
@@ -133,26 +109,12 @@
           "type": "checkbox"
         },
         {
-          "name": "Robots Onstage",
-          "type": "multicheckbox",
-          "options": [
-            "Stage Left",
-            "Stage Right",
-            "Center Stage"
-          ]
-        },
-        {
           "name": "Harmony",
           "type": "checkbox"
         },
         {
-          "name": "Trap Note Positions",
-          "type": "multicheckbox",
-          "options": [
-            "Stage Left",
-            "Stage Right",
-            "Center Stage"
-          ]
+          "name": "Trap Note Scored",
+          "type": "checkbox"
         },
         {
           "name": "Comments",
@@ -163,12 +125,6 @@
           "type": "heading",
           "colspan": 2,
           "align": "center"
-        },
-        {
-          "type": "picture",
-          "file": "stage.png",
-          "colspan": 2,
-          "height": 250
         }
       ]
     }
