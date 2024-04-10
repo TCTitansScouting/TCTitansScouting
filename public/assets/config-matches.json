@@ -49,6 +49,8 @@
         {
           "name": "passed notes",
           "type": "spinbox"
+          "row": 1,
+          "col": 3
         },
         {
           "name": "Source",
