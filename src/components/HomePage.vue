@@ -15,6 +15,9 @@
     <li>
       <RouterLink :to="{ name: 'tps-exporter' }">TPS Exporter</RouterLink>
     </li>
+    <li>
+      <RouterLink :to="{ name: 'experiment' }">Experimental Page</RouterLink>
+    </li>
   </ul>
   <p style="margin-top: 50px">Version: {{ version }}</p>
 </template>
