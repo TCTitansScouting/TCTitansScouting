@@ -43,22 +43,8 @@
           "align": "center"
         },
         {
-          "name": "Ground",
-          "type": "spinbox",
-          "row": 2,
-          "col": 0
-        },
-        {
           "name": "passes",
-          "type": "spinbox",
-          "row": 1,
-          "col": 2
-        },
-        {
-          "name": "Source",
-          "type": "spinbox",
-          "row": 2,
-          "col": 3
+          "type": "spinbox"
         },
         {
           "name": "Scoring",
