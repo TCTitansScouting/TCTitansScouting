@@ -44,7 +44,8 @@
         },
         {
           "name": "passes",
-          "type": "spinbox"
+          "type": "spinbox",
+           "align": "center"
         },
         {
           "name": "Scoring",
