@@ -59,7 +59,7 @@ const props = defineProps<{
 const spreadsheetData = ref('');
 const qrCodeUrl = ref('');
 const excludeHeaders = ref(false);
-
+const savedData = widgets.savedData;
 const router = useRouter();
 const page = ref<InstanceType<typeof FormPage>>();
 const qrContainer = ref<HTMLDialogElement>();
