@@ -47,9 +47,15 @@
           "type": "spinbox"
         },
         {
+          "name": "Ground",
+          "type": "spinbox",
+          "row": 3,
+          "col": 3
+        },
+        {
           "name": "Source",
           "type": "spinbox",
-          "row": 2,
+          "row": 3,
           "col": 3
         },
         {
@@ -115,6 +121,8 @@
         {
           "name": "Comments",
           "type": "textarea"
-        }  
-    ]
-}]}
+        }
+      ]
+    }
+  ]
+}
