@@ -45,8 +45,8 @@
         {
           "name": "Ground",
           "type": "spinbox",
-          "row":2
-          "col":1
+          "row": 2,
+          "col": 1
         },
         {
           "name": "passed notes",
