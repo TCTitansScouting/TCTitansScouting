@@ -1,11 +1,11 @@
 <template>
-  <div id="inspector-container">
+  <div id="experiment-Container">
     <InspectorContainer />
   </div>
 </template>
 
 <script setup lang="ts">
-import InspectorContainer from "@/components/InspectorContainer.vue";
+import InspectorContainer from "@/components/experiment.vue";
 </script>
 
 <style>
