@@ -59,17 +59,14 @@ const props = defineProps<{
 const spreadsheetData = ref('');
 const qrCodeUrl = ref('');
 const excludeHeaders = ref(false);
-const savedData = widgets.savedData;
+
 const router = useRouter();
 const page = ref<InstanceType<typeof FormPage>>();
 const qrContainer = ref<HTMLDialogElement>();
 
 function generateQRCode() {
   //const dataText = JSON.stringify(props.data, null, 2);
-  const dataText = $computed(() => {
-      const data = savedData.get(config.name);
-      return (data === undefined) ? null : makeDownloadLink(data);
-    });
+  const dataText = $computed(() => widgets.makeDownloadLink(props.data, true));
   if (dataText) {
     QRCode.toDataURL(dataText, (err, url) => {
       if (err) {
