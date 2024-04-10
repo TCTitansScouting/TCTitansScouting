@@ -51,14 +51,14 @@
         {
           "name": "passes",
           "type": "spinbox",
-          "row": 2,
+          "row": 1,
           "col": 2
         },
         {
           "name": "Source",
           "type": "spinbox",
           "row": 2,
-          "col": 4
+          "col": 3
         },
         {
           "name": "Scoring",
