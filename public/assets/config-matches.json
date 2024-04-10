@@ -44,12 +44,14 @@
         },
         {
           "name": "Ground",
-          "type": "spinbox"
+          "type": "spinbox",
+          "row": 1,
+          "col": 2
         },
         {
           "name": "passes",
           "type": "spinbox",
-          "row": 3,
+          "row": 2,
           "col": 2
         },
         {
