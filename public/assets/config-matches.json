@@ -46,10 +46,10 @@
           "name": "Ground",
           "type": "spinbox",
           "row": 2,
-          "col": 0.5
+          "col": 0
         },
         {
-          "name": "passed notes",
+          "name": "passes",
           "type": "spinbox",
           "row": 2,
           "col": 2
@@ -58,7 +58,7 @@
           "name": "Source",
           "type": "spinbox",
           "row": 2,
-          "col": 3.5
+          "col": 4
         },
         {
           "name": "Scoring",
