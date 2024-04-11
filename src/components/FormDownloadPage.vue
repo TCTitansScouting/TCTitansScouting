@@ -100,7 +100,7 @@ const page = $ref<InstanceType<typeof FormPage>>();
 
 const qrContainer = $ref<HTMLDialogElement>();
 
-const qrData = $ref(useStorage("widgetsSavedData", new Map<string, SavedData>()));
+  const qrData = $computed(() => widgets.toCSVString(widgets.savedData, excludeHeaders));
 
 const excludeHeaders = $ref(false);
 
