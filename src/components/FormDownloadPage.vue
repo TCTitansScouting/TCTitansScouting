@@ -3,7 +3,7 @@
 
     <FormGroup :label-type="LabelType.None" :colspan="2" align="center">
 
-      <button @click="qrContainer?.showModal()">Generate QR Code</button>
+      <button @click="generateQRCode()">Generate QR Code</button>
 
     </FormGroup>
 
@@ -23,15 +23,7 @@
 
       <span v-if="widgets.savedData.size === 0">No Saved Data</span>
 
-      <template v-else>
-        <label for="entry-select">Entry</label>
-        <select id="entry-select" v-model.number="selectedIdx">
-          <option v-for="[i, name] of entries.entries()" :key="i" :value="i">{{ name }}</option>
-        </select>
-        <button @click="deleteData">Delete</button>
-        <button @click="downloadData">Download</button>
-        <button @click="clearData">Clear All</button>
-      </template>
+      <a v-else @click="downloadAllData()">Download All Data</a>
 
     </FormGroup>
 
@@ -94,37 +86,49 @@ const router = useRouter();
 const entries = computed(() => [...widgets.savedData.keys()]);
 let selectedIdx = ref(0);
 
-function deleteData() {
-  if (widgets.savedData.size === 0) return;
-  if (selectedIdx.value >= entries.value.length) return;
+function generateQRCode() {
+  if (widgets.savedData.size === 0) {
+    alert("No data to generate QR code.");
+    return;
+  }
 
-  const entryName = entries.value[selectedIdx.value];
-  if (!confirm(`Delete the records for entry '${entryName}' permanently?`)) return;
+  const allDataString = Array.from(widgets.savedData.values())
+    .map(entry => `${entry.header.join(',')}\n${entry.values.map(record => record.join(',')).join('\n')}`)
+    .join('\n');
 
-  widgets.savedData.delete(entryName);
+  const qrData = excludeHeaders ? allDataString : allDataString.replace(/,+/g, '\n');
+
+  showQRCodeDialog(qrData);
 }
 
-function downloadData() {
-  if (widgets.savedData.size === 0) return;
-  if (selectedIdx.value >= entries.value.length) return;
+function showQRCodeDialog(qrData: string) {
+  // Assuming qrContainer is a ref to the dialog element
+  qrContainer?.showModal();
 
-  const entryName = entries.value[selectedIdx.value];
-  const entryData = widgets.savedData.get(entryName);
-  if (!entryData) return;
+  // Assuming qrDataRef is a ref to the QR code value
+  qrDataRef.value = qrData;
+}
 
-  const csvData = `${entryData.header.join(',')}\n${entryData.values.map(record => record.join(',')).join('\n')}`;
-  const blob = new Blob([csvData], { type: 'text/csv' });
+function downloadAllData() {
+  if (widgets.savedData.size === 0) {
+    alert("No data to download.");
+    return;
+  }
+
+  const allDataString = Array.from(widgets.savedData.values())
+    .map(entry => `${entry.header.join(',')}\n${entry.values.map(record => record.join(',')).join('\n')}`)
+    .join('\n');
+
+  const blob = new Blob([allDataString], { type: 'text/csv' });
   const downloadLink = document.createElement('a');
   downloadLink.href = URL.createObjectURL(blob);
-  downloadLink.download = `scouted-${config.name}.csv`;
+  downloadLink.download = `all-scouted-data.csv`;
   downloadLink.click();
 }
 
-function clearData() {
-  if (widgets.savedData.size === 0) return;
-  if (!confirm("Clear all saved data permanently?")) return;
-
-  widgets.savedData.clear();
+function clearForm() {
+  widgets.save();
+  router.go(0); // Reload the page
 }
 
 defineExpose({ title: computed(() => page?.title), setShown: computed(() => page?.setShown) });
