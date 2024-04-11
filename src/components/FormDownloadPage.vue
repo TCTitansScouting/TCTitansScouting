@@ -84,7 +84,7 @@ const widgets = useWidgetsStore();
 const router = useRouter();
 
 const entries = computed(() => [...widgets.savedData.keys()]);
-const selectedIdx = ref(0); // Define selectedIdx using ref
+const selectedIdx = 0; // Define selectedIdx using ref
 
 function generateQRCode() {
   if (widgets.savedData.size === 0) {
