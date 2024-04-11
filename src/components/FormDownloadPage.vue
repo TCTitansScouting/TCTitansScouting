@@ -1,5 +1,4 @@
 <template>
-
   <FormPage title="Download Data" ref="page">
 
     <FormGroup :label-type="LabelType.None" :colspan="2" align="center">
@@ -22,9 +21,17 @@
 
     <FormGroup :label-type="LabelType.None" :colspan="2" align="center">
 
-      <span v-if="widgets.downloadLink === null">No Saved Data</span>
+      <span v-if="widgets.savedData.size === 0">No Saved Data</span>
 
-      <a v-else :download="`scouted-${config.name}.csv`" :href="widgets.downloadLink">Download Saved CSV</a>
+      <template v-else>
+        <label for="entry-select">Entry</label>
+        <select id="entry-select" v-model.number="selectedIdx">
+          <option v-for="[i, name] of entries.entries()" :key="i" :value="i">{{ name }}</option>
+        </select>
+        <button @click="deleteData">Delete</button>
+        <button @click="downloadData">Download</button>
+        <button @click="clearData">Clear All</button>
+      </template>
 
     </FormGroup>
 
@@ -64,93 +71,65 @@
 
 </template>
 
-
-
 <script setup lang="ts">
 import Ajv from "ajv";
-
 import FormPage from "./FormPage.vue";
-
 import FormGroup from "./FormGroup.vue";
-
 import { LabelType } from "@/common/shared";
-
 import { computed } from "vue";
-
 import { ConfigSchema, Widget } from "@/config";
-  
 import { defineStore } from "pinia";
-
-import QrcodeVue from "qrcode.vue";
-
 import { useConfigStore } from "@/common/stores";
-
-  import { useWidgetsStore } from "@/common/stores";
-
+import { useWidgetsStore } from "@/common/stores";
 import { useRouter } from "vue-router";
-
 import { useStorage } from "@vueuse/core";
-  
 import { isFailed, TBAData } from "./tba";
-  
 import { Ref } from "vue";
-
 import validate from "./validate";
 
 const config = useConfigStore();
-
 const widgets = useWidgetsStore();
-
-  const store = useWidgetsStore();
-  const savedData = store.getWidgetsAsCSV();
-
 const router = useRouter();
 
-export interface SavedData {
-    header: string[]; // Each element is a value in the CSV header
-    values: string[][]; // Each element is a CSV record, each element in a record is a widget value
-  }
+const entries = computed(() => [...widgets.savedData.keys()]);
+let selectedIdx = ref(0);
 
-const page = $ref<InstanceType<typeof FormPage>>();
+function deleteData() {
+  if (widgets.savedData.size === 0) return;
+  if (selectedIdx.value >= entries.value.length) return;
 
-const qrContainer = $ref<HTMLDialogElement>();
+  const entryName = entries.value[selectedIdx.value];
+  if (!confirm(`Delete the records for entry '${entryName}' permanently?`)) return;
 
-  const entries = $computed(() => [...widgets.savedData.keys()]);
-
-  const qrData = computed(() => {
-    
-    const allSavedData = widgets.savedData.values();
-
-    const csvString = allSavedData.map(entry => {
-      const header = entry.header.join(',');
-      const records = entry.values.map(record => record.join(',')).join('\n');
-      return `${header}\n${records}`;
-    }).join('\n');
-
-    // Return CSV string
-    return csvString;
-  });
-
-
-const excludeHeaders = $ref(false);
-
-
-
-function clearForm() {
-
-  widgets.save();
-
-  router.go(0); // Reload the page
-
+  widgets.savedData.delete(entryName);
 }
 
+function downloadData() {
+  if (widgets.savedData.size === 0) return;
+  if (selectedIdx.value >= entries.value.length) return;
 
+  const entryName = entries.value[selectedIdx.value];
+  const entryData = widgets.savedData.get(entryName);
+  if (!entryData) return;
+
+  const csvData = `${entryData.header.join(',')}\n${entryData.values.map(record => record.join(',')).join('\n')}`;
+  const blob = new Blob([csvData], { type: 'text/csv' });
+  const downloadLink = document.createElement('a');
+  downloadLink.href = URL.createObjectURL(blob);
+  downloadLink.download = `scouted-${config.name}.csv`;
+  downloadLink.click();
+}
+
+function clearData() {
+  if (widgets.savedData.size === 0) return;
+  if (!confirm("Clear all saved data permanently?")) return;
+
+  widgets.savedData.clear();
+}
 
 defineExpose({ title: computed(() => page?.title), setShown: computed(() => page?.setShown) });
 
 </script>
-
-
 
 <style lang="postcss">
 
