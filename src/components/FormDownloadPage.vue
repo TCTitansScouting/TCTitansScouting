@@ -67,6 +67,7 @@
 
 
 <script setup lang="ts">
+import Ajv from "ajv";
 
 import FormPage from "./FormPage.vue";
 
@@ -83,6 +84,10 @@ import { useConfigStore, useWidgetsStore } from "@/common/stores";
 import { useRouter } from "vue-router";
 
 import { useStorage } from "@vueuse/core";
+  
+import { isFailed, TBAData } from "./tba";
+  
+import { Ref } from "vue";
 
 
 
