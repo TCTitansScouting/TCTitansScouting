@@ -27,6 +27,8 @@ import InspectorTable from "./InspectorTable.vue";
 import { useWidgetsStore } from "@/common/stores";
 import QRCode from 'qrcode';
 
+import {ref} from "vue"; 
+
 const widgets = useWidgetsStore();
 let selectedIdx = $ref(0); // The index of the entry selected in the combobox
 
