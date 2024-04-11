@@ -32,7 +32,9 @@ let selectedIdx = $ref(0); // The index of the entry selected in the combobox
 
 const downloadLink = $ref<HTMLAnchorElement>();
 const selectedRecords = $ref(new Set<number>());
+const qrCodeUrl = ref('');
 const hasSelectedRecords = $computed(() => selectedRecords.size > 0);
+const qrContainer = ref<HTMLDialogElement>();
 
 const entries = $computed(() => [...widgets.savedData.keys()]); // The entries in local storage
 const selectedEntry = $computed(() => widgets.savedData.get(entries[selectedIdx])); // The selected entry
@@ -59,10 +61,7 @@ function downloadData() {
   if (selectedEntry === undefined) return;
   if (downloadLink === undefined) return; // Make sure the link exists
 
-  // Generate the download link for the selected records, then trigger the download
-  // If there are no records selected, they will all be included in the generated file
-
-  const dataText = filterRecords(true);
+   const dataText = selectedEntry.header + "\n" + selectedEntry.values.map(value => value.join(",")).join("\n");
     if (dataText) {
       QRCode.toDataURL(dataText, (err, url) => {
         if (err) {
@@ -74,12 +73,12 @@ function downloadData() {
     } else {
       alert('Please enter some form data.')
     }
-  }
-
-
   
-  // downloadLink.href = widgets.makeDownloadLink({ header: selectedEntry.header, values: filterRecords(true) });
-  // downloadLink.click();
+  
+  // Generate the download link for the selected records, then trigger the download
+  // If there are no records selected, they will all be included in the generated file
+  downloadLink.href = widgets.makeDownloadLink({ header: selectedEntry.header, values: filterRecords(true) });
+  downloadLink.click();
 }
 
 function clearData() {
