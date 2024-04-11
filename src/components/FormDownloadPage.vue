@@ -102,7 +102,7 @@ const config = useConfigStore();
 const widgets = useWidgetsStore();
 
   const store = useWidgetsStore();
-  const $ref(useStorage("widgetsSavedData", new Map<string, SavedData>()));
+  const savedData = $ref(useStorage("widgetsSavedData", new Map<string, SavedData>()));
     
   //savedData = store.getWidgetsAsCSV();
 
