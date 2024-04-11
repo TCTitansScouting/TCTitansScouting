@@ -1,9 +1,10 @@
 <template>
+
   <FormPage title="Download Data" ref="page">
 
     <FormGroup :label-type="LabelType.None" :colspan="2" align="center">
 
-      <button @click="generateQRCode()">Generate QR Code</button>
+      <button @click="qrContainer?.showModal()">Generate QR Code</button>
 
     </FormGroup>
 
@@ -21,9 +22,9 @@
 
     <FormGroup :label-type="LabelType.None" :colspan="2" align="center">
 
-      <span v-if="widgets.savedData.size === 0">No Saved Data</span>
+      <span v-if="widgets.downloadLink === null">No Saved Data</span>
 
-      <a v-else @click="downloadAllData()">Download All Data</a>
+      <a v-else :download="`scouted-${config.name}.csv`" :href="widgets.downloadLink">Download Saved CSV</a>
 
     </FormGroup>
 
@@ -63,77 +64,61 @@
 
 </template>
 
+
+
 <script setup lang="ts">
-import Ajv from "ajv";
+
 import FormPage from "./FormPage.vue";
+
 import FormGroup from "./FormGroup.vue";
+
 import { LabelType } from "@/common/shared";
+
 import { computed } from "vue";
-import { ConfigSchema, Widget } from "@/config";
-import { defineStore } from "pinia";
-import { useConfigStore } from "@/common/stores";
-import { useWidgetsStore } from "@/common/stores";
+
+import QrcodeVue from "qrcode.vue";
+
+import { useConfigStore, useWidgetsStore } from "@/common/stores";
+
 import { useRouter } from "vue-router";
-import { useStorage } from "@vueuse/core";
-import { isFailed, TBAData } from "./tba";
-import { Ref } from "vue";
-import validate from "./validate";
+
+
 
 const config = useConfigStore();
+
 const widgets = useWidgetsStore();
+
+
+
 const router = useRouter();
 
-const entries = computed(() => [...widgets.savedData.keys()]);
-const selectedIdx = 0; // Define selectedIdx using ref
 
-function generateQRCode() {
-  if (widgets.savedData.size === 0) {
-    alert("No data to generate QR code.");
-    return;
-  }
 
-  const allDataString = Array.from(widgets.savedData.values())
-    .map(entry => `${entry.header.join(',')}\n${entry.values.map(record => record.join(',')).join('\n')}`)
-    .join('\n');
+const page = $ref<InstanceType<typeof FormPage>>();
 
-  const qrData = excludeHeaders ? allDataString : allDataString.replace(/,+/g, '\n');
+const qrContainer = $ref<HTMLDialogElement>();
 
-  showQRCodeDialog(qrData);
-}
+const qrData = $computed(() => widgets.toCSVString(widgets.getWidgetsAsCSV(), excludeHeaders));
 
-function showQRCodeDialog(qrData: string) {
-  // Assuming qrContainer is a ref to the dialog element
-  qrContainer?.showModal();
+const excludeHeaders = $ref(false);
 
-  // Assuming qrDataRef is a ref to the QR code value
-  qrDataRef.value = qrData;
-}
 
-function downloadAllData() {
-  if (widgets.savedData.size === 0) {
-    alert("No data to download.");
-    return;
-  }
-
-  const allDataString = Array.from(widgets.savedData.values())
-    .map(entry => `${entry.header.join(',')}\n${entry.values.map(record => record.join(',')).join('\n')}`)
-    .join('\n');
-
-  const blob = new Blob([allDataString], { type: 'text/csv' });
-  const downloadLink = document.createElement('a');
-  downloadLink.href = URL.createObjectURL(blob);
-  downloadLink.download = `all-scouted-data.csv`;
-  downloadLink.click();
-}
 
 function clearForm() {
+
   widgets.save();
+
   router.go(0); // Reload the page
+
 }
+
+
 
 defineExpose({ title: computed(() => page?.title), setShown: computed(() => page?.setShown) });
 
 </script>
+
+
 
 <style lang="postcss">
 
