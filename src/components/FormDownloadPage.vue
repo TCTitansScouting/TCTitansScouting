@@ -98,7 +98,7 @@ const page = $ref<InstanceType<typeof FormPage>>();
 
 const qrContainer = $ref<HTMLDialogElement>();
 
-const qrData = $computed(() => widgets.makeDownloadLink(widgets.getWidgetsAsCSV()));
+const qrData = $computed(() => widgets.makeDownloadLink(widgets.savedData.get(config.name) ));
 
 const excludeHeaders = $ref(false);
 
