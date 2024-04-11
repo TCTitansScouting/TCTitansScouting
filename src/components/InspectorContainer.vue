@@ -8,11 +8,13 @@
         <option v-for="[i, name] of entries.entries()" :key="i" :value="i">{{ name }}</option>
       </select>
       <button @click="deleteData">Delete</button>
-      <button @click="downloadData">Generate Qr Code </button>
-      
-        <img :src="qrCodeUrl" alt="QR Code">
-
+      <button @click="downloadData">Download</button>
       <button @click="clearData">Clear All</button>
+      <button @click="generateQRCode">Generate QR Code</button>
+      <br>
+      <div v-if="qrCodeUrl">
+        <img :src="qrCodeUrl" alt="QR Code">
+      </div>
     </template>
   </div>
   <div class="table-container">
@@ -25,21 +27,19 @@
 <script setup lang="ts">
 import InspectorTable from "./InspectorTable.vue";
 import { useWidgetsStore } from "@/common/stores";
-import QRCode from 'qrcode';
-
-import {ref} from "vue"; 
+import QRCode from 'qrcode'; // Import QR code generation library
 
 const widgets = useWidgetsStore();
 let selectedIdx = $ref(0); // The index of the entry selected in the combobox
 
 const downloadLink = $ref<HTMLAnchorElement>();
 const selectedRecords = $ref(new Set<number>());
-const qrCodeUrl = ref('');
 const hasSelectedRecords = $computed(() => selectedRecords.size > 0);
-const qrContainer = ref<HTMLDialogElement>();
 
 const entries = $computed(() => [...widgets.savedData.keys()]); // The entries in local storage
 const selectedEntry = $computed(() => widgets.savedData.get(entries[selectedIdx])); // The selected entry
+
+const qrCodeUrl = $ref<string | null>(null);
 
 // Filters records in the selected entry based on the user selection.
 // If there are no records selected, the filter directly uses the given state, returning either all or no records.
@@ -63,27 +63,10 @@ function downloadData() {
   if (selectedEntry === undefined) return;
   if (downloadLink === undefined) return; // Make sure the link exists
 
-   const dataText = "guthib.com";
-     
-     //selectedEntry.header + "\n" + selectedEntry.values.map(value => value.join(",")).join("\n");
-    if (dataText) {
-      QRCode.toDataURL(dataText, (err, url) => {
-        if (err) {
-          console.error(err)
-        } else {
-          qrCodeUrl.value = url;
-        }
-      })
-    } else {
-      alert('Please enter some form data.')
-    }
-  
-  
   // Generate the download link for the selected records, then trigger the download
   // If there are no records selected, they will all be included in the generated file
-  
-  // downloadLink.href = widgets.makeDownloadLink({ header: selectedEntry.header, values: filterRecords(true) });
-  // downloadLink.click();
+  downloadLink.href = widgets.makeDownloadLink({ header: selectedEntry.header, values: filterRecords(true) });
+  downloadLink.click();
 }
 
 function clearData() {
@@ -91,6 +74,21 @@ function clearData() {
 
   widgets.savedData.clear();
   selectedIdx = 0; // Reset selected index
+}
+
+function generateQRCode() {
+  const dataText = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; // Adjust with appropriate data
+  if (dataText) {
+    QRCode.toDataURL(dataText, (err, url) => {
+      if (err) {
+        console.error(err)
+      } else {
+        qrCodeUrl.value = url;
+      }
+    })
+  } else {
+    alert('Please enter some form data.')
+  }
 }
 </script>
 
