@@ -83,7 +83,9 @@ import { defineStore } from "pinia";
 
 import QrcodeVue from "qrcode.vue";
 
-import { useConfigStore, useWidgetsStore } from "@/common/stores";
+import { useConfigStore } from "@/common/stores";
+
+  import { useWidgetsStore } from "@/stores/widgets";
 
 import { useRouter } from "vue-router";
 
@@ -99,7 +101,8 @@ const config = useConfigStore();
 
 const widgets = useWidgetsStore();
 
-
+  const store = useWidgetsStore();
+  const savedData = store.getWidgetsAsCSV();
 
 const router = useRouter();
 
@@ -112,7 +115,7 @@ const page = $ref<InstanceType<typeof FormPage>>();
 
 const qrContainer = $ref<HTMLDialogElement>();
 
-  const qrData = $computed(() => widgets.toCSVString(useConfigStore.data, excludeHeaders));
+  const qrData = $computed(() => widgets.toCSVString(savedData, excludeHeaders));
 
 const excludeHeaders = $ref(false);
 
