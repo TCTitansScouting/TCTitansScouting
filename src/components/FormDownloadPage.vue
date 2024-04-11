@@ -117,7 +117,20 @@ const qrContainer = $ref<HTMLDialogElement>();
 
   const entries = $computed(() => [...widgets.savedData.keys()]);
 
-  const qrData = $computed(() => widgets.toCSVString(entries, excludeHeaders));
+  const qrData = computed(() => {
+    
+    const allSavedData = widgets.savedData.values();
+
+    const csvString = allSavedData.map(entry => {
+      const header = entry.header.join(',');
+      const records = entry.values.map(record => record.join(',')).join('\n');
+      return `${header}\n${records}`;
+    }).join('\n');
+
+    // Return CSV string
+    return csvString;
+  });
+
 
 const excludeHeaders = $ref(false);
 
