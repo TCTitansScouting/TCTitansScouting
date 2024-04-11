@@ -85,7 +85,7 @@ import QrcodeVue from "qrcode.vue";
 
 import { useConfigStore } from "@/common/stores";
 
-  import { useWidgetsStore } from "@/stores/widgets";
+  import { useWidgetsStore } from "@/common/stores";
 
 import { useRouter } from "vue-router";
 
