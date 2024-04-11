@@ -9,9 +9,9 @@
       </select>
       <button @click="deleteData">Delete</button>
       <button @click="downloadData">Generate Qr Code </button>
-      <div v-if="qrCodeUrl">
+      
         <img :src="qrCodeUrl" alt="QR Code">
-      </div>
+
       <button @click="clearData">Clear All</button>
     </template>
   </div>
