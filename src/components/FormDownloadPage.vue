@@ -77,6 +77,10 @@ import { LabelType } from "@/common/shared";
 
 import { computed } from "vue";
 
+import { ConfigSchema, Widget } from "@/config";
+  
+import { defineStore } from "pinia";
+
 import QrcodeVue from "qrcode.vue";
 
 import { useConfigStore, useWidgetsStore } from "@/common/stores";
@@ -89,7 +93,7 @@ import { isFailed, TBAData } from "./tba";
   
 import { Ref } from "vue";
 
-
+import validate from "./validate";
 
 const config = useConfigStore();
 
@@ -99,7 +103,10 @@ const widgets = useWidgetsStore();
 
 const router = useRouter();
 
-
+  export interface SavedData {
+    header: string[]; // Each element is a value in the CSV header
+    values: string[][]; // Each element is a CSV record, each element in a record is a widget value
+  }
 
 const page = $ref<InstanceType<typeof FormPage>>();
 
