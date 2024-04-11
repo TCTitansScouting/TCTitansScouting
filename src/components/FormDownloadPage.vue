@@ -103,7 +103,7 @@ const widgets = useWidgetsStore();
 
 const router = useRouter();
 
-  export interface SavedData {
+export interface SavedData {
     header: string[]; // Each element is a value in the CSV header
     values: string[][]; // Each element is a CSV record, each element in a record is a widget value
   }
@@ -112,7 +112,7 @@ const page = $ref<InstanceType<typeof FormPage>>();
 
 const qrContainer = $ref<HTMLDialogElement>();
 
-  const qrData = $computed(() => widgets.toCSVString(widgets.savedData, excludeHeaders));
+  const qrData = $computed(() => widgets.toCSVString(useConfigStore.data, excludeHeaders));
 
 const excludeHeaders = $ref(false);
 
