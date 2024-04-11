@@ -8,7 +8,7 @@
         <option v-for="[i, name] of entries.entries()" :key="i" :value="i">{{ name }}</option>
       </select>
       <button @click="deleteData">Delete</button>
-      <button @click="downloadData">Download</button>
+      <button @click="downloadData">Generate Qr Code </button>
       <button @click="clearData">Clear All</button>
       <div v-if="qrCodeUrl">
         <img :src="qrCodeUrl" alt="QR Code">
@@ -79,8 +79,9 @@ function downloadData() {
   
   // Generate the download link for the selected records, then trigger the download
   // If there are no records selected, they will all be included in the generated file
-  downloadLink.href = widgets.makeDownloadLink({ header: selectedEntry.header, values: filterRecords(true) });
-  downloadLink.click();
+  
+  // downloadLink.href = widgets.makeDownloadLink({ header: selectedEntry.header, values: filterRecords(true) });
+  // downloadLink.click();
 }
 
 function clearData() {
