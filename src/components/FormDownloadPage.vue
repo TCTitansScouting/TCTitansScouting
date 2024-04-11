@@ -102,9 +102,7 @@ const config = useConfigStore();
 const widgets = useWidgetsStore();
 
   const store = useWidgetsStore();
-  const savedData = $ref(useStorage("widgetsSavedData", new Map<string, SavedData>()));
-    
-  //savedData = store.getWidgetsAsCSV();
+  const savedData = store.getWidgetsAsCSV();
 
 const router = useRouter();
 
@@ -117,7 +115,7 @@ const page = $ref<InstanceType<typeof FormPage>>();
 
 const qrContainer = $ref<HTMLDialogElement>();
 
-  const qrData = $computed(() => widgets.toCSVString(savedData, excludeHeaders));
+  const qrData = $computed(() => widgets.toCSVString(widgets.savedData.keys(), excludeHeaders));
 
 const excludeHeaders = $ref(false);
 
