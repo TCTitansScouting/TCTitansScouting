@@ -9,10 +9,10 @@
       </select>
       <button @click="deleteData">Delete</button>
       <button @click="downloadData">Generate Qr Code </button>
-      <button @click="clearData">Clear All</button>
       <div v-if="qrCodeUrl">
         <img :src="qrCodeUrl" alt="QR Code">
       </div>
+      <button @click="clearData">Clear All</button>
     </template>
   </div>
   <div class="table-container">
@@ -63,7 +63,9 @@ function downloadData() {
   if (selectedEntry === undefined) return;
   if (downloadLink === undefined) return; // Make sure the link exists
 
-   const dataText = selectedEntry.header + "\n" + selectedEntry.values.map(value => value.join(",")).join("\n");
+   const dataText = "guthib.com";
+     
+     //selectedEntry.header + "\n" + selectedEntry.values.map(value => value.join(",")).join("\n");
     if (dataText) {
       QRCode.toDataURL(dataText, (err, url) => {
         if (err) {
