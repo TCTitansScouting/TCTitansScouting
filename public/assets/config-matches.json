@@ -55,23 +55,48 @@
         },
         {
           "name": "Speaker Notes",
-          "type": "spinbox"
+          "type": "spinbox",
+          "noLabel": true
+        },
+        {
+          "name": "Speaker notes",
+          "type": "text",
         },
         {
           "name": "Amplified Speaker Notes",
+          "noLabel": true,
           "type": "spinbox",
           "row": 4,
           "col": 3
         },
         {
+          "name": "Amplified speaker notes",
+          "type": "text",
+          "row": 5,
+          "col": 3
+        },
+        
+        {
           "name": "Amp Notes",
           "type": "spinbox"
         },
         {
+          "name": "Amp notes",
+          "type": "text",
+          "noLabel": true
+        },
+        {
           "name": "Trap Notes",
           "type": "spinbox",
+          "noLabel": true,
           "max": 3,
-          "row": 5,
+          "row": 6,
+          "col": 3
+        },
+        {
+          "name": "Trap notes",
+          "type": "text",
+          "row": 7,
           "col": 3
         },
         {
