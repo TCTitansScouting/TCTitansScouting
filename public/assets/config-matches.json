@@ -60,7 +60,7 @@
         },
         {
           "name": "Speaker notes",
-          "type": "text",
+          "type": "text"
         },
         {
           "name": "Amplified Speaker Notes",
