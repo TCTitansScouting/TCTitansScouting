@@ -11,14 +11,18 @@
   </div>
 </template>
 
-<script setup lang="ts">
-export default {
-    methods: {
-      pauseVideo() {
-        this.$refs.videoPlayer.pause();
+<script> 
+  export default {
+      methods: {
+        pauseVideo() {
+          this.$refs.videoPlayer.pause();
+      }
     }
   }
-}
+</script>
+
+
+<script setup lang="ts">
 import { useConfigStore, useWidgetsStore } from "@/common/stores";
 
 const props = defineProps<{
