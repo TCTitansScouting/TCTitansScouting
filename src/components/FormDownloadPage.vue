@@ -4,7 +4,6 @@
     </FormGroup>
     <FormGroup :label-type="LabelType.None" :colspan="2" align="center">
       <button @click="clearForm">Save and Clear Form</button>
-      <FormGroup :label-type="LabelType.None" :colspan="2" align="center">
       <br>
       <button @click="generateQRCode">Generate QR Code</button>
       <br>
