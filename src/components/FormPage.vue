@@ -2,8 +2,10 @@
   <div v-show="show">
     <h1 class="page-heading">{{ config.data.heading ?? "Scouting" }}</h1>
     <h3 v-if="teamDesc?.length > 0" class="page-heading">Team: {{ teamDesc }}</h3>
-
-    <video v-if="config.data.logo" ref="videoPlayer" alt="Cannot load logo file" :src="absoluteLogoPath" class="center" autoplay muted @ended="pauseVideo" preload="auto"></video>
+    <video v-if="config.data.video" autoplay muted loop class="center">
+      <source :src="absoluteVideoPath" type="video/mp4">
+      Your browser does not support the video tag.
+    </video>
     <h2 class="page-heading">{{ title }}</h2>
     <div class="grid">
       <slot></slot>
@@ -12,39 +14,26 @@
 </template>
 
 <script setup lang="ts">
-  import { defineProps, defineExpose, ref, computed, onMounted } from 'vue';
-  import { useConfigStore, useWidgetsStore } from "@/common/stores";
+import { useConfigStore, useWidgetsStore } from "@/common/stores";
 
-  const props = defineProps<{
-    title: string
-  }>();
+const props = defineProps<{
+  title: string
+}>();
 
-  const config = useConfigStore();
-  const widgets = useWidgetsStore();
+const config = useConfigStore();
+const widgets = useWidgetsStore();
 
-  const teamDesc = computed(() => widgets.values.find(i => i.name == "Team")?.value.replaceAll(",", ", "));
+const teamDesc = $computed(() => widgets.values.find(i => i.name == "Team")?.value.replaceAll(",", ", "));
 
-  // Get the full path to the logo image
-  const absoluteLogoPath = computed(() => `${import.meta.env.BASE_URL}assets/${config.data.logo}`);
+// Get the full path to the video file
+const absoluteVideoPath = =$computed(() => `${import.meta.env.BASE_URL}assets/${config.data.logo}`);
 
-  const show = ref(false);
+let show = $ref(false);
 
-  widgets.lastWidgetRowEnd = 1;
+widgets.lastWidgetRowEnd = 1;
 
-  // Expose page data
-  defineExpose({ title: props.title, setShown: (value: boolean) => show.value = value });
-
-  // Function to pause video
-  const pauseVideo = () => {
-    if (videoPlayer.value) {
-      videoPlayer.value.pause();
-    }
-  };
-
-  // Lifecycle hook
-  onMounted(() => {
-    // Do something on component mount if needed
-  });
+// Expose page data
+defineExpose({ title: props.title, setShown: (value: boolean) => show = value });
 </script>
 
 <style>
@@ -63,19 +52,8 @@
   text-align: center;
 }
 
-#video-container {
-  position: relative;
-  width: 40%;
-  height: 50vh;
-  overflow: hidden;
-}
-
+/* Style for the video */
 video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
+  max-width: 100%;
 }
 </style>
