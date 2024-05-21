@@ -11,18 +11,19 @@
   </div>
 </template>
 
-<script setup> 
-  export default {
-      methods: {
-        pauseVideo() {
-          this.$refs.videoPlayer.pause();
+<script setup lang="ts">
+  import { Vue, Component, Ref } from 'vue-property-decorator';
+
+  @Component
+  export default class VideoComponent extends Vue {
+    @Ref('videoPlayer') readonly videoPlayer!: HTMLVideoElement;
+
+    pauseVideo(): void {
+      if (this.videoPlayer) {
+        this.videoPlayer.pause();
       }
     }
   }
-</script>
-
-
-<script setup lang="ts">
 import { useConfigStore, useWidgetsStore } from "@/common/stores";
 
 const props = defineProps<{
@@ -62,20 +63,20 @@ defineExpose({ title: props.title, setShown: (value: boolean) => show = value })
 }
 </style>
 <style scoped>
-#video-container {
-  position: relative;
-  width: 40%;
-  height: 50vh;
-  overflow: hidden;
-}
-video {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-}
+  #video-container {
+    position: relative;
+    width: 40%;
+    height: 50vh;
+    overflow: hidden;
+  }
+  video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
 </style>
 
 
