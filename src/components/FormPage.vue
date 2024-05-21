@@ -2,7 +2,8 @@
   <div v-show="show">
     <h1 class="page-heading">{{ config.data.heading ?? "Scouting" }}</h1>
     <h3 v-if="teamDesc?.length > 0" class="page-heading">Team: {{ teamDesc }}</h3>
-    <img v-if="config.data.logo" :src="absoluteLogoPath" alt="Cannot load logo file" class="center" />
+
+    <video v-if="config.data.logo" ref="videoPlayer" alt="Cannot load logo file" src="animgif.mp4" class="center" autoplay muted @ended="pauseVideo" preload="auto"></video>
     <h2 class="page-heading">{{ title }}</h2>
     <div class="grid">
       <slot></slot>
@@ -11,6 +12,13 @@
 </template>
 
 <script setup lang="ts">
+export default {
+    methods: {
+      pauseVideo() {
+        this.$refs.videoPlayer.pause();
+    }
+  }
+}
 import { useConfigStore, useWidgetsStore } from "@/common/stores";
 
 const props = defineProps<{
@@ -49,3 +57,21 @@ defineExpose({ title: props.title, setShown: (value: boolean) => show = value })
   text-align: center;
 }
 </style>
+<style scoped>
+#video-container {
+  position: relative;
+  width: 40%;
+  height: 50vh;
+  overflow: hidden;
+}
+video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+</style>
+
+
