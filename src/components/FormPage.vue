@@ -11,7 +11,7 @@
   </div>
 </template>
 
-<script> 
+<script setup> 
   export default {
       methods: {
         pauseVideo() {
