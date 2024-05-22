@@ -22,16 +22,6 @@
     <InspectorTable v-else v-model="selectedRecords" :data="selectedEntry" />
   </div>
   <a :hidden="true" :download="entries[selectedIdx]" ref="downloadLink"></a>
-  <dialog ref="qrContainer">
-    <div id="qr-dialog-contents">
-      <button id="qr-dialog-close" @click="qrContainer?.close">Close</button>
-      <div>
-        <input type="checkbox" v-model="excludeHeaders" id="exclude-headers" />
-        <label for="exclude-headers">Exclude headers in code</label>
-      </div>
-      <qrcode-vue :value="qrData" level="M" render-as="svg" :size="350" />
-    </div>
-  </dialog>
 </template>
 
 
