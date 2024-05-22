@@ -1,4 +1,4 @@
-import Ajv from "ajv";
+import Ajv from "ajv";zZ
 import { ConfigSchema, Widget } from "@/config";
 import { defineStore } from "pinia";
 import { isFailed, TBAData } from "./tba";
@@ -34,7 +34,9 @@ export const useWidgetsStore = defineStore("widgets", () => {
   const values = $ref(new Array<WidgetValue>());
 
   // All saved data (config names in the map correspond to form data for that config, stored on disk)
-  const savedData = $ref(useStorage("widgetsSavedData", new Map<string, SavedData>()));
+  const savedData = $ref(
+    useStorage("widgetsSavedData", new Map<string, SavedData>())
+  );
 
   const lastWidgetRowEnd = $ref(1);
   const config = useConfigStore();
@@ -42,18 +44,21 @@ export const useWidgetsStore = defineStore("widgets", () => {
   // Download link for the current configuration
   const downloadLink = $computed(() => {
     const data = savedData.get(config.name);
-    return (data === undefined) ? null : makeDownloadLink(data);
+    return data === undefined ? null : makeDownloadLink(data);
   });
 
   // Returns the current form's widget data.
   function getWidgetsAsCSV(): SavedData {
     // Turns a value into a string. Arrays are space-delimited to minimize collision with the CSV format.
-    const stringify = (value: unknown) => Array.isArray(value) ? value.join(" ") : String(value);
+    const stringify = (value: unknown) =>
+      Array.isArray(value) ? value.join(" ") : String(value);
 
     // Get header and record from the data (`name` is already a string so it does not need stringification)
     // Then add the current timestamp as the last field in the record
-    const header = values.map(i => i.name).concat("ScoutedTime");
-    const record = values.map(i => stringify(i.value)).concat(new Date().toString());
+    const header = values.map((i) => i.name).concat("ScoutedTime");
+    const record = values
+      .map((i) => stringify(i.value))
+      .concat(new Date().toString());
     return { header, values: [record] };
   }
 
@@ -61,7 +66,8 @@ export const useWidgetsStore = defineStore("widgets", () => {
   function toCSVString(data: SavedData, excludeHeaders?: boolean): string {
     // Transforms an array of strings into valid CSV by escaping quotes, then joining each value.
     // https://en.wikipedia.org/wiki/Comma-separated_values
-    const escape = (s: string[]) => s.map(i => `"${i.replaceAll('  ', '    ')}  `).join();
+    const escape = (s: string[]) =>
+      s.map((i) => `"${i.replaceAll("  ", "    ")}  `).join();
 
     // Escape the header and list of records, then put them together into a blob for downloading
     const header = escape(data.header);
@@ -73,13 +79,13 @@ export const useWidgetsStore = defineStore("widgets", () => {
   function makeDownloadLink(data: SavedData): string {
     const datas = JSON.stringify(data);
     const datsa = JSON.stringify(data, null, 2);
-    alert("data : " + datas)
-    alert("more data : " + datsa)
+    alert("data : " + datas);
+    alert("more data : " + datsa);
     return toCSVString(data);
   }
 
-  function makeqrcodedata(data: SavedData): Blob {
-    const csvString = new Blob([toCSVString(data)], { type: "text/csv" })
+  function makeqrcodedata(data: SavedData): string {
+    const csvString = JSON.stringify(data);
     return csvString;
   }
 
@@ -92,7 +98,10 @@ export const useWidgetsStore = defineStore("widgets", () => {
       name = key;
     } else if (key.name !== undefined) {
       // Data object key provided, use its name field if it's defined
-      name = (key.prefix ? `${key.prefix}-${key.name}` : key.name).replaceAll(/\s/g, "");
+      name = (key.prefix ? `${key.prefix}-${key.name}` : key.name).replaceAll(
+        /\s/g,
+        ""
+      );
     } else {
       // Invalid argument
       return -1;
@@ -118,7 +127,15 @@ export const useWidgetsStore = defineStore("widgets", () => {
   }
 
   return $$({
-    values, savedData, lastWidgetRowEnd, downloadLink, getWidgetsAsCSV, toCSVString, makeDownloadLink, addWidgetValue, save
+    values,
+    savedData,
+    lastWidgetRowEnd,
+    downloadLink,
+    getWidgetsAsCSV,
+    toCSVString,
+    makeDownloadLink,
+    addWidgetValue,
+    save,
   });
 });
 
@@ -145,9 +162,12 @@ export const useTBAStore = defineStore("tba", () => {
     }
 
     // Otherwise, fetch the data from the API, passing the API key (must be set in env)
-    const fetchData = await fetch(`https://www.thebluealliance.com/api/v3/event/${code}/${name}/simple`, {
-      headers: { "X-TBA-Auth-Key": import.meta.env.VITE_TBA_API_KEY }
-    });
+    const fetchData = await fetch(
+      `https://www.thebluealliance.com/api/v3/event/${code}/${name}/simple`,
+      {
+        headers: { "X-TBA-Auth-Key": import.meta.env.VITE_TBA_API_KEY },
+      }
+    );
 
     // Parse the data as a JSON object
     const data = await fetchData.json();

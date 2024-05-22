@@ -67,7 +67,7 @@ function downloadData() {
 
   // Generate the download link for the selected records, then trigger the download
   // If there are no records selected, they will all be included in the generated file
-  downloadLink.href = widgets.makeDownloadLink({ header: selectedEntry.header, values: filterRecords(true) });
+  downloadLink.href = widgets.makeqrcodedata({ header: selectedEntry.header, values: filterRecords(true) });
   //downloadLink.click();
   alert("download blob : " + downloadLink);
   //experimental test to see if this method can generate qr code
