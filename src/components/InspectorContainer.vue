@@ -77,6 +77,7 @@ function downloadData() {
         console.error(err)
       } else {
       qrCodeUrl.value = url;
+      alert(QRCode)
     }
   })
   } else {
