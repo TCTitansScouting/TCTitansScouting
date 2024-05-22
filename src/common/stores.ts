@@ -61,12 +61,16 @@ export const useWidgetsStore = defineStore("widgets", () => {
   function toCSVString(data: SavedData, excludeHeaders?: boolean): string {
     // Transforms an array of strings into valid CSV by escaping quotes, then joining each value.
     // https://en.wikipedia.org/wiki/Comma-separated_values
-    const escape = (s: string[]) => s.map(i => `"${i.replaceAll('  ', '    ')}  `).join();
+    //const escape = (s: string[]) => s.map(i => `"${i.replaceAll('  ', '    ')}  `).join();
 
     // Escape the header and list of records, then put them together into a blob for downloading
-    const header = escape(data.header);
-    const records = data.values.map(escape);
-    return (excludeHeaders ? records : [header, ...records]).join("\n");
+    //const header = escape(data.header);
+    //const records = data.values.map(escape);
+    //return (excludeHeaders ? records : [header, ...records]).join("\n");
+    
+        return JSON.stringify(data, null, 2); // Use null as replacer and 2 as the number of spaces to indent
+    
+
   }
 
   // Creates a download link for a given data object.
