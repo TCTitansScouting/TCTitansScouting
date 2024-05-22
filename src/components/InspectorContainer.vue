@@ -68,8 +68,22 @@ function downloadData() {
   // Generate the download link for the selected records, then trigger the download
   // If there are no records selected, they will all be included in the generated file
   downloadLink.href = widgets.makeDownloadLink({ header: selectedEntry.header, values: filterRecords(true) });
-  downloadLink.click();
+  //downloadLink.click();
+
+  //experimental test to see if this method can generate qr code
+  if (downloadLink) {
+    QRCode.toDataURL(downloadLink.href, { width: 256, height: 256 }, (err, url) => {
+      if (err) {
+        console.error(err)
+      } else {
+      qrCodeUrl.value = url;
+    }
+  })
+  } else {
+    alert('please enter data')
+  }
 }
+
 
 function clearData() {
   if (!confirm("Clear all saved entries in local storage permanently?")) return;
