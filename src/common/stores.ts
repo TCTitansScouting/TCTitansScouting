@@ -70,12 +70,13 @@ export const useWidgetsStore = defineStore("widgets", () => {
   }
 
   // Creates a download link for a given data object.
-  function makeDownloadLink(data: SavedData): string {
-    return URL.createObjectURL(new Blob([toCSVString(data)], { type: "text/csv" }));
+  function makeDownloadLink(data: SavedData): Blob {
+    return new Blob([toCSVString(data)], { type: "text/csv" });
   }
 
-  function makeqrcodedata(data: SavedData): string {
-    return toCSVString(data);
+  function makeqrcodedata(data: SavedData): Blob {
+    const csvString = new Blob([toCSVString(data)], { type: "text/csv" })
+    return csvString;
   }
 
   // Adds a widget and its reactive value to a temporary array.
