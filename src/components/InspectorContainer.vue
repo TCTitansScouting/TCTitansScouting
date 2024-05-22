@@ -22,7 +22,18 @@
     <InspectorTable v-else v-model="selectedRecords" :data="selectedEntry" />
   </div>
   <a :hidden="true" :download="entries[selectedIdx]" ref="downloadLink"></a>
+  <dialog ref="qrContainer">
+    <div id="qr-dialog-contents">
+      <button id="qr-dialog-close" @click="qrContainer?.close">Close</button>
+      <div>
+        <input type="checkbox" v-model="excludeHeaders" id="exclude-headers" />
+        <label for="exclude-headers">Exclude headers in code</label>
+      </div>
+      <qrcode-vue :value="qrData" level="M" render-as="svg" :size="350" />
+    </div>
+  </dialog>
 </template>
+
 
 <script setup lang="ts">
 import InspectorTable from "./InspectorTable.vue";
@@ -77,7 +88,7 @@ function clearData() {
 }
 
 function generateQRCode() {
-  const dataText = widgets.makeCSVString({ header: selectedEntry.header, values: filterRecords(true) }); // Adjust with appropriate data
+  const dataText = widgets.makeqrcodedata({ header: selectedEntry.header, values: filterRecords(true) }); // Adjust with appropriate data
   if (dataText) {
     QRCode.toDataURL(dataText, (err, url) => {
       if (err) {
