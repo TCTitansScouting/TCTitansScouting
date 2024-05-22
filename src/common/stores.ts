@@ -70,8 +70,8 @@ export const useWidgetsStore = defineStore("widgets", () => {
   }
 
   // Creates a download link for a given data object.
-  function makeDownloadLink(data: SavedData): Blob {
-    return new Blob([toCSVString(data)], { type: "text/csv" });
+  function makeDownloadLink(data: SavedData): string {
+    return toCSVString(data);
   }
 
   function makeqrcodedata(data: SavedData): Blob {
