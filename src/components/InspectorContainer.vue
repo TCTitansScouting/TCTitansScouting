@@ -70,7 +70,7 @@ function downloadData() {
   downloadLink.href = widgets.makeDownloadLink({ header: selectedEntry.header, values: filterRecords(true) });
   //dataText.href = JSON.stringify({ header: selectedEntry.header, values: filterRecords(true) });
   //downloadLink.click();
-  alert("data formated : " + { header: selectedEntry.header, values: filterRecords(true) });
+  alert("data formated : " + selectedEntry.header );
   alert("download blob : " + downloadLink);
   //experimental test to see if this method can generate qr code
   // if (downloadLink) {
