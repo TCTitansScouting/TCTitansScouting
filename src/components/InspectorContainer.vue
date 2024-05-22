@@ -33,7 +33,7 @@ import QRCode from 'qrcode'; // Import QR code generation library
 const widgets = useWidgetsStore();
 let selectedIdx = $ref(0); // The index of the entry selected in the combobox
 
-const downloadLink = $ref<HTMLAnchorElement>();
+const downloadLink = $ref<blob>();
 const dataText = $ref<string>();
 const selectedRecords = $ref(new Set<number>());
 const hasSelectedRecords = $computed(() => selectedRecords.size > 0);
