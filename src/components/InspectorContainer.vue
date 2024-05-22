@@ -75,9 +75,10 @@ function downloadData() {
     QRCode.toDataURL(downloadLink.href, { width: 256, height: 256 }, (err, url) => {
       if (err) {
         console.error(err)
+        alert("error")
       } else {
       qrCodeUrl.value = url;
-      alert(QRCode)
+      alert("succsesfully generate blob of qr code data: " + qrCodeUrl)
     }
   })
   } else {
