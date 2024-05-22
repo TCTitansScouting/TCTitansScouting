@@ -34,6 +34,7 @@ const widgets = useWidgetsStore();
 let selectedIdx = $ref(0); // The index of the entry selected in the combobox
 
 const downloadLink = $ref<HTMLAnchorElement>();
+const dataText = $ref<string>();
 const selectedRecords = $ref(new Set<number>());
 const hasSelectedRecords = $computed(() => selectedRecords.size > 0);
 
@@ -78,7 +79,7 @@ function clearData() {
 }
 
 function generateQRCode() {
-  const dataText = widgets.makeqrcodedata({ header: selectedEntry.header, values: filterRecords(true) }); // Adjust with appropriate data
+  dataText.href = widgets.makeqrcodedata({ header: selectedEntry.header, values: filterRecords(true) }); // Adjust with appropriate data
   if (dataText) {
     QRCode.toDataURL(dataText, (err, url) => {
       if (err) {
