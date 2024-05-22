@@ -74,6 +74,10 @@ export const useWidgetsStore = defineStore("widgets", () => {
     return URL.createObjectURL(new Blob([toCSVString(data)], { type: "text/csv" }));
   }
 
+  function makeqrcodedata(data: SavedData): string {
+    return toCSVString(data);
+  }
+
   // Adds a widget and its reactive value to a temporary array.
   function addWidgetValue(key: string | Widget, value: Ref) {
     let name = null;
