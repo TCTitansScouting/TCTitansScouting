@@ -84,8 +84,8 @@ export const useWidgetsStore = defineStore("widgets", () => {
     return toCSVString(data);
   }
 
-  function makeqrcodedata(data: SavedData): string {
-    const csvString = JSON.stringify(data);
+  function makeqrcodedata(data: SavedData): Blob {
+    const csvString = new Blob([toCSVString(data)], { type: "text/csv" });
     return csvString;
   }
 
