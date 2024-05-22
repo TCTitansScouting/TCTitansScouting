@@ -68,7 +68,7 @@ function downloadData() {
   // Generate the download link for the selected records, then trigger the download
   // If there are no records selected, they will all be included in the generated file
   downloadLink.href = widgets.makeDownloadLink({ header: selectedEntry.header, values: filterRecords(true) });
-  dataText = JSON.stringify({ header: selectedEntry.header, values: filterRecords(true) });
+  dataText.href = JSON.stringify({ header: selectedEntry.header, values: filterRecords(true) });
   //downloadLink.click();
   alert("data formated : " + dataText);
   alert("download blob : " + downloadLink);
