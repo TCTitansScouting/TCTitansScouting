@@ -77,7 +77,7 @@ function clearData() {
 }
 
 function generateQRCode() {
-  const dataText = "https://www.youtube.com/watch?v=dQw4w9WgXcQ"; // Adjust with appropriate data
+  const dataText = makeqrcodedata({ header: selectedEntry.header, values: filterRecords(true) }); // Adjust with appropriate data
   if (dataText) {
     QRCode.toDataURL(dataText, (err, url) => {
       if (err) {
