@@ -71,8 +71,10 @@ export const useWidgetsStore = defineStore("widgets", () => {
 
   // Creates a download link for a given data object.
   function makeDownloadLink(data: SavedData): string {
-    const datas = JSON.stringify(data, null, 2);
+    const datas = JSON.stringify(data);
+    const datsa = JSON.stringify(data, null, 2);
     alert("data : " + datas)
+    alert("more data : " + datsa)
     return toCSVString(data);
   }
 
