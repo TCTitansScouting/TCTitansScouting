@@ -1,5 +1,8 @@
 <template>
   <div id="controls-container">
+    <div v-if="qrCodeUrl">
+      <img :src="qrCodeUrl" alt="QR Code">
+    </div>
     <RouterLink :to="{ name: 'home' }" style="margin-right: 40px;">Home</RouterLink>
     <span v-if="widgets.savedData.size === 0">&lt;No Entries&gt;</span>
     <template v-else>
@@ -12,9 +15,7 @@
       <button @click="clearData">Clear All</button>
       <button @click="generateQRCode">Generate QR Code</button>
       <br>
-      <div v-if="qrCodeUrl">
-        <img :src="qrCodeUrl" alt="QR Code">
-      </div>
+      
     </template>
   </div>
   <div class="table-container">
@@ -103,7 +104,7 @@ function generateQRCode() {
     QRCode.toDataURL(qrdat, (err, url) => {
       if (err) {
         console.error(err)
-        alert("error")
+        alert(err);
         qrCodeUrl.value = url;
         alert("qr code : " + QRCode)
       } else {
