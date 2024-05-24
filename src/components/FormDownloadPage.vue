@@ -56,20 +56,34 @@ const excludeHeaders = ref(false);
 const router = useRouter();
 const page = ref<InstanceType<typeof FormPage>>();
 const qrContainer = ref<HTMLDialogElement>();
-function generateQRCode() {
-  const dataText = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
-  if (dataText) {
-    QRCode.toDataURL(dataText, (err, url) => {
-      if (err) {
-        console.error(err)
-      } else {
-        qrCodeUrl.value = url;
-      }
-    })
-  } else {
-    alert('Please enter some form data.')
+// function generateQRCode() {
+//   const dataText = "https://www.youtube.com/watch?v=dQw4w9WgXcQ";
+//   if (dataText) {
+//     QRCode.toDataURL(dataText, (err, url) => {
+//       if (err) {
+//         console.error(err)
+//       } else {
+//         qrCodeUrl.value = url;
+//       }
+//     })
+//   } else {
+//     alert('Please enter some form data.')
+//   }
+// }
+  function generateQRCode() {
+    datas = widgets.makeqrcodedata({ header: selectedEntry.header, values: 
+      filterRecords(true) }); // Adjust with appropriate data
+    alert("qr code data : " + datas)
+      QRCode.toDataURL(datas, (err, url) => {
+        if (err) {
+          console.error(err)
+          alert("error ")
+        } else {
+          qrCodeUrl.value = url;
+          alert("qr code : " + QRCode)
+        }
+      })
   }
-}
 function clearForm() {
   widgets.save();
   router.go(0);
