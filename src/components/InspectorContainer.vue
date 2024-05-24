@@ -35,7 +35,7 @@ const widgets = useWidgetsStore();
 let selectedIdx = $ref(0); // The index of the entry selected in the combobox
 
 const downloadLink = $ref<string>();
-let qrdat = $ref<string>();
+let datas = $ref<string>();
 const selectedRecords = $ref(new Set<number>());
 const hasSelectedRecords = $computed(() => selectedRecords.size > 0);
 
@@ -69,10 +69,9 @@ function downloadData() {
   // Generate the download link for the selected records, then trigger the download
   // If there are no records selected, they will all be included in the generated file
   downloadLink.href = widgets.makeDownloadLink({ header: selectedEntry.header, values: filterRecords(true) });
+  alert("download blob : " + downloadLink);
   //dataText.href = JSON.stringify({ header: selectedEntry.header, values: filterRecords(true) });
   //downloadLink.click();
-  
-  alert("download blob : " + downloadLink);
   //experimental test to see if this method can generate qr code
   // if (downloadLink) {
   //   QRCode.toDataURL(downloadLink.href, { width: 256, height: 256 }, (err, url) => {
@@ -98,10 +97,10 @@ function clearData() {
 }
 
 function generateQRCode() {
-  qrdat = widgets.makeqrcodedata({ header: selectedEntry.header, values: 
-    filterRecords(false) }); // Adjust with appropriate data
-  alert("qr code data : " + qrdat)
-    QRCode.toDataURL(qrdat, (err, url) => {
+  datas = widgets.makeqrcodedata({ header: selectedEntry.header, values: 
+    filterRecords(True) }); // Adjust with appropriate data
+  alert("qr code data : " + datas)
+    QRCode.toDataURL(datas, (err, url) => {
       if (err) {
         console.error(err)
         alert("error ")
