@@ -97,7 +97,7 @@ function clearData() {
 }
 
 function generateQRCode() {
-  dataText.href = widgets.makeqrcodedata({ header: selectedEntry.header, values: filterRecords(true) }); // Adjust with appropriate data
+  dataText = widgets.makeqrcodedata({ header: selectedEntry.header, values: filterRecords(true) }); // Adjust with appropriate data
   if (dataText) {
     QRCode.toDataURL(dataText, (err, url) => {
       if (err) {
