@@ -45,6 +45,7 @@ import QrcodeVue from "qrcode.vue";
 import { useConfigStore, useWidgetsStore } from "@/common/stores";
 import { useRouter } from "vue-router";
 import QRCode from 'qrcode';
+import InspectorTable from "./InspectorTable.vue";
 const config = useConfigStore();
 const widgets = useWidgetsStore();
 const props = defineProps<{
