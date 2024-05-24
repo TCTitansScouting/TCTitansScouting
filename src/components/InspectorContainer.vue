@@ -34,7 +34,7 @@ const widgets = useWidgetsStore();
 let selectedIdx = $ref(0); // The index of the entry selected in the combobox
 
 const downloadLink = $ref<string>();
-//const qrdat = $ref<string>();
+let qrdat = $ref<string>();
 const selectedRecords = $ref(new Set<number>());
 const hasSelectedRecords = $computed(() => selectedRecords.size > 0);
 
