@@ -90,7 +90,7 @@ export const useWidgetsStore = defineStore("widgets", () => {
   }
 
   function makeqrcodedata(data: SavedData): string {
-    alert("data : " + JSON.stringify(data));
+    alert("data that is trying to be returned : " + JSON.stringify(data));
     return JSON.stringify(data);
   }
   // Adds a widget and its reactive value to a temporary array.
