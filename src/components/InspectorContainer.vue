@@ -110,8 +110,8 @@ function generateQRCode() {
         alert("url : ", url)
         alert("qr code : " + QRCode)
       } else {
-        // qrCodeUrl.value = url;
-        // alert("qr code : " + QRCode)
+        qrCodeUrl.value = url;
+        alert("qr code : " + QRCode)
       }
     })
 }
