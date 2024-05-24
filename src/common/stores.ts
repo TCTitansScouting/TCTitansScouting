@@ -1,4 +1,4 @@
-import Ajv from "ajv";zZ
+import Ajv from "ajv";
 import { ConfigSchema, Widget } from "@/config";
 import { defineStore } from "pinia";
 import { isFailed, TBAData } from "./tba";
