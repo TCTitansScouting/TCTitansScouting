@@ -90,11 +90,9 @@ export const useWidgetsStore = defineStore("widgets", () => {
   }
 
   function makeqrcodedata(data: SavedData): string {
-    const csvString = JSON.stringify(data);
-    alert("data : " + csvString);
-    return csvString;
+    alert("data : " + JSON.stringify(data));
+    return JSON.stringify(data);
   }
-
   // Adds a widget and its reactive value to a temporary array.
   function addWidgetValue(key: string | Widget, value: Ref) {
     let name = null;
