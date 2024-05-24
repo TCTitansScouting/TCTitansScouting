@@ -100,20 +100,17 @@ function generateQRCode() {
   qrdat = widgets.makeqrcodedata({ header: selectedEntry.header, values: 
     filterRecords(true) }); // Adjust with appropriate data
   alert("qr code : " + qrdat)
-  if (qrdat) {
     QRCode.toDataURL(qrdat, (err, url) => {
       if (err) {
         console.error(err)
         alert("error")
-        alert("qr code : " + QRCode)
-      } else {
         qrCodeUrl.value = url;
         alert("qr code : " + QRCode)
+      } else {
+        // qrCodeUrl.value = url;
+        // alert("qr code : " + QRCode)
       }
     })
-  } else {
-    alert('Please enter some form data.')
-  }
 }
 </script>
 
