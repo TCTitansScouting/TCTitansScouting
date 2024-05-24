@@ -24,6 +24,7 @@
   <a :hidden="true" :download="entries[selectedIdx]" ref="downloadLink"></a>
 </template>
 
+
 <script setup lang="ts">
 import InspectorTable from "./InspectorTable.vue";
 import { useWidgetsStore } from "@/common/stores";
@@ -95,17 +96,22 @@ function clearData() {
   selectedIdx = 0; // Reset selected index
 }
 
-  function generateQRCode() {
-    qrdat.value = widgets.makeqrcodedata({ header: selectedEntry.value.header, values: filterRecords(true) }); // Adjust with appropriate data
-    QRCode.toDataURL(qrdat.value, (err, url) => {
+function generateQRCode() {
+  qrdat = widgets.makeqrcodedata({ header: selectedEntry.header, values: 
+    filterRecords(true) }); // Adjust with appropriate data
+  alert("qr code : " + qrdat)
+    QRCode.toDataURL(qrdat, (err, url) => {
       if (err) {
-        console.error(err);
-        alert("Error generating QR code");
-      } else {
+        console.error(err)
+        alert("error")
         qrCodeUrl.value = url;
+        alert("qr code : " + QRCode)
+      } else {
+        // qrCodeUrl.value = url;
+        // alert("qr code : " + QRCode)
       }
-    });
-  }
+    })
+}
 </script>
 
 <style>
