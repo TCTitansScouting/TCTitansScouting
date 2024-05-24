@@ -47,6 +47,11 @@ export const useWidgetsStore = defineStore("widgets", () => {
     return data === undefined ? null : makeDownloadLink(data);
   });
 
+  const qrdat = $computed(() => {
+    const data = savedData.get(config.name);
+    return data === undefined ? null : makeqrcodedata(data);
+  });
+
   // Returns the current form's widget data.
   function getWidgetsAsCSV(): SavedData {
     // Turns a value into a string. Arrays are space-delimited to minimize collision with the CSV format.
@@ -84,8 +89,9 @@ export const useWidgetsStore = defineStore("widgets", () => {
     return toCSVString(data);
   }
 
-  function makeqrcodedata(data: SavedData): Blob {
-    const csvString = new Blob([toCSVString(data)], { type: "text/csv" });
+  function makeqrcodedata(data: SavedData): string {
+    const csvString = JSON.stringify(data);
+    alert("data : " + csvString);
     return csvString;
   }
 
@@ -131,9 +137,11 @@ export const useWidgetsStore = defineStore("widgets", () => {
     savedData,
     lastWidgetRowEnd,
     downloadLink,
+    qrdat,
     getWidgetsAsCSV,
     toCSVString,
     makeDownloadLink,
+    makeqrcodedata,
     addWidgetValue,
     save,
   });
