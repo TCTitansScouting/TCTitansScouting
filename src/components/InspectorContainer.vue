@@ -104,10 +104,6 @@ function generateQRCode() {
     QRCode.toDataURL(qrdat, (err, url) => {
       if (err) {
         console.error(err)
-        alert("error : ", err)
-        qrCodeUrl.value = url;
-        alert("url : ", url)
-        alert("qr code : " + QRCode.)
       } else {
         qrCodeUrl.value = url;
         alert("qr code : " + QRCode)
