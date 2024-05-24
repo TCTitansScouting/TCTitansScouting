@@ -99,11 +99,12 @@ function clearData() {
 
 function generateQRCode() {
   qrdat = widgets.makeqrcodedata({ header: selectedEntry.header, values: 
-    filterRecords(true) }); // Adjust with appropriate data
-  alert("qr code : " + qrdat)
+    filterRecords(false) }); // Adjust with appropriate data
+  alert("qr code data : " + qrdat)
     QRCode.toDataURL(qrdat, (err, url) => {
       if (err) {
         console.error(err)
+        alert("error ")
       } else {
         qrCodeUrl.value = url;
         alert("qr code : " + QRCode)
