@@ -105,6 +105,7 @@ function generateQRCode() {
       if (err) {
         console.error(err)
         alert("error")
+        alert("qr code : " + QRCode)
       } else {
         qrCodeUrl.value = url;
         alert("qr code : " + QRCode)
