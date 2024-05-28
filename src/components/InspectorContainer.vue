@@ -84,7 +84,7 @@ function generateQRCode() {
       console.error(err);
       alert("Error generating QR Code.");
     } else {
-      qrCodeUrl.value = url;
+      qrCodeUrl = url;
       alert("QR Code generated successfully.");
     }
   });
