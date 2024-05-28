@@ -15,7 +15,6 @@
       <button @click="clearData">Clear All</button>
       <button @click="generateQRCode">Generate QR Code</button>
       <br>
-      
     </template>
   </div>
   <div class="table-container">
@@ -24,7 +23,6 @@
   </div>
   <a :hidden="true" :download="entries[selectedIdx]" ref="downloadLink"></a>
 </template>
-
 
 <script setup lang="ts">
 import InspectorTable from "./InspectorTable.vue";
@@ -69,25 +67,8 @@ function downloadData() {
   // Generate the download link for the selected records, then trigger the download
   // If there are no records selected, they will all be included in the generated file
   downloadLink.href = widgets.makeDownloadLink({ header: selectedEntry.header, values: filterRecords(true) });
-  alert("download blob : " + downloadLink);
-  //dataText.href = JSON.stringify({ header: selectedEntry.header, values: filterRecords(true) });
-  //downloadLink.click();
-  //experimental test to see if this method can generate qr code
-  // if (downloadLink) {
-  //   QRCode.toDataURL(downloadLink.href, { width: 256, height: 256 }, (err, url) => {
-  //     if (err) {
-  //       console.error(err)
-  //       alert("error")
-  //     } else {
-  //     qrCodeUrl.value = url;
-  //     alert("succsesfully generate blob of qr code data: " + qrCodeUrl)
-  //   }
-  // })
-  // } else {
-  //   alert('please enter data')
-  // }
+  downloadLink.click();
 }
-
 
 function clearData() {
   if (!confirm("Clear all saved entries in local storage permanently?")) return;
@@ -97,18 +78,16 @@ function clearData() {
 }
 
 function generateQRCode() {
-  datas = widgets.makeqrcodedata({ header: selectedEntry.header, values: 
-    filterRecords(true) }); // Adjust with appropriate data
-  alert("qr code data : " + datas)
-    QRCode.toDataURL(datas, (err: any, url: string) => {
-      if (err) {
-        console.error(err)
-        alert("error ")
-      } else {
-        qrCodeUrl.value = url;
-        alert("qr code : " + QRCode)
-      }
-    })
+  datas.value = widgets.makeqrcodedata({ header: selectedEntry.header, values: filterRecords(true) }); // Adjust with appropriate data
+  QRCode.toDataURL(datas.value, (err: any, url: string) => {
+    if (err) {
+      console.error(err);
+      alert("Error generating QR Code.");
+    } else {
+      qrCodeUrl.value = url;
+      alert("QR Code generated successfully.");
+    }
+  });
 }
 </script>
 
