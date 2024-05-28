@@ -78,8 +78,8 @@ function clearData() {
 }
 
 function generateQRCode() {
-  datas.value = widgets.makeqrcodedata({ header: selectedEntry.header, values: filterRecords(true) }); // Adjust with appropriate data
-  QRCode.toDataURL(datas.value, (err: any, url: string) => {
+  datas = widgets.makeqrcodedata({ header: selectedEntry.header, values: filterRecords(true) }); // Adjust with appropriate data
+  QRCode.toDataURL(datas, (err: any, url: string) => {
     if (err) {
       console.error(err);
       alert("Error generating QR Code.");
