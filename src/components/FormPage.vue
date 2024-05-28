@@ -1,6 +1,6 @@
 <template>
   <div v-show="show">
-    <RouterLink :to="{ name: 'home' }" style="margin-right: 40px;">Home</RouterLink>
+    <RouterLink :to="{ name: 'home' }" ">Home</RouterLink>
     <h1 class="page-heading">{{ config.data.heading ?? "Scouting" }}</h1>
     <h3 v-if="teamDesc?.length > 0" class="page-heading">Team: {{ teamDesc }}</h3>
     <img v-if="config.data.logo" :src="absoluteLogoPath" alt="Cannot load logo file" class="center" />
