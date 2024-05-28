@@ -50,18 +50,6 @@ const filterRecords = (state: boolean) => (selectedEntry === undefined)
   ? []
   : selectedEntry.values.filter((_v, i) => hasSelectedRecords ? (selectedRecords.has(i) === state) : state);
 
-  async function generateQRCodeToDataURL(text: string): Promise<string> {
-    try {
-      // Generate QR code
-      const qrCodeDataURL: string = await QRCode.toDataURL(text);
-      return qrCodeDataURL;
-    } catch (error) {
-      // Handle errors
-      console.error('Error generating QR code:', error);
-      throw error;
-    }
-  }
-  
 function deleteData() {
   if (selectedEntry === undefined) return;
 
@@ -109,26 +97,25 @@ function clearData() {
 }
 
 function generateQRCode() {
-   datas = widgets.makeqrcodedata({ header: selectedEntry.header, values: 
-  //   filterRecords(true) }); // Adjust with appropriate data
-  // alert("qr code data : " + datas)
-  //   QRCode.toDataURL(datas, (err, url) => {
-  //     if (err) {
-  //       console.error(err)
-  //       alert("error ")
-  //     } else {
-  //       qrCodeUrl.value = url;
-  //       alert("qr code : " + QRCode)
-  //     }
-  //   })
+  datas = widgets.makeqrcodedata({ header: selectedEntry.header, values: 
+    filterRecords(true) }); // Adjust with appropriate data
+  alert("qr code data : " + datas)
+    QRCode.toDataURL(datas, (err, url) => {
+      if (err) {
+        console.error(err)
+        alert("error ")
+      } else {
+        qrCodeUrl.value = url;
+        alert("qr code : " + QRCode)
+      }
+    })
 
-  generateQRCodeToDataURL(datas)
+  generateQRCodeToDataURL('Hello, world!')
   .then((dataURL: string) => {
     console.log('QR code data URL:', dataURL);
-    qrCodeUrl.value = dataURL;
   })
   .catch((error: any) => {
-    alert('An error occurred:', error);
+    console.error('An error occurred:', error);
   });
 }
 </script>
