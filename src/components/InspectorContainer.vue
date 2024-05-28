@@ -100,7 +100,7 @@ function generateQRCode() {
   datas = widgets.makeqrcodedata({ header: selectedEntry.header, values: 
     filterRecords(true) }); // Adjust with appropriate data
   alert("qr code data : " + datas)
-    QRCode.toDataURL(datas, (err, url) => {
+    QRCode.toDataURL(datas, (err: any, url: string) => {
       if (err) {
         console.error(err)
         alert("error ")
