@@ -109,14 +109,6 @@ function generateQRCode() {
         alert("qr code : " + QRCode)
       }
     })
-
-  generateQRCodeToDataURL('Hello, world!')
-  .then((dataURL: string) => {
-    console.log('QR code data URL:', dataURL);
-  })
-  .catch((error: any) => {
-    console.error('An error occurred:', error);
-  });
 }
 </script>
 
